@@ -1,6 +1,8 @@
-# **SVGO Helper**
+# **SVGR Helper**
 
 Tool to quick convert multiple svg files in React or ReactNative components
+
+Based on [SVGR](https://react-svgr.com/)
 
 ## Usage
 
