@@ -45,8 +45,8 @@ const main = () => {
         }
 
         files.forEach((filename) => {
-            const newFileName = `${prefix ? prefix + '-' : ''}${filename.replace(/.svg$/i, '').replace(/_/g, '-')}`
-            const componentName = `${kebabToPascalCase(newFileName)}Svg`
+            const newFilename = `${prefix ? prefix + '-' : ''}${filename.replace(/.svg$/i, '').replace(/_/g, '-')}`
+            const componentName = `${kebabToPascalCase(newFilename)}Svg`
 
             fs.readFile(`./input/${filename}`, 'utf8', (readErr, data) => {
                 if (readErr) {
@@ -61,8 +61,8 @@ const main = () => {
                     plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx', '@svgr/plugin-prettier'],
                 }, { componentName, }).then(
                     (jsCode) => {
-                        fs.writeFile(`./output/${newFileName}.tsx`, jsCode, () => { 
-                            console.log(`${componentName} created and saved to ./output/${newFileName}`) 
+                        fs.writeFile(`./output/${newFilename}${typescript ? '.tsx' : '.jsx'}`, jsCode, () => { 
+                            console.log(`${componentName} created and saved to ./output/${newFilename}`) 
                         })
                     },
                     )
