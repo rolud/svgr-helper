@@ -6,6 +6,8 @@ Based on [SVGR](https://react-svgr.com/)
 
 ## Usage
 
+Create `input` folder and put inside it svg files. Then run command: 
+
 ```
 npm start [-- options]
 ```
