@@ -44,7 +44,7 @@ const main = () => {
             return
         }
 
-        files.forEach((filename) => {
+        files.filter(filename => !filename.match(/^\./)).forEach((filename) => {
             const newFilename = `${prefix ? prefix + '-' : ''}${filename.replace(/.svg$/i, '').replace(/_/g, '-')}`
             const componentName = `${kebabToPascalCase(newFilename)}Svg`
 
@@ -53,19 +53,24 @@ const main = () => {
                     throw new Error(readErr.message)
                 }
                 
-                svgr(data, { 
-                    icon, 
-                    typescript, 
-                    native, 
-                    prettier: true,
-                    plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx', '@svgr/plugin-prettier'],
-                }, { componentName, }).then(
-                    (jsCode) => {
-                        fs.writeFile(`./output/${newFilename}${typescript ? '.tsx' : '.jsx'}`, jsCode, () => { 
-                            console.log(`${componentName} created and saved to ./output/${newFilename}`) 
-                        })
-                    },
+                try {
+
+                    svgr(data, { 
+                        icon, 
+                        typescript, 
+                        native, 
+                        prettier: true,
+                        plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx', '@svgr/plugin-prettier'],
+                    }, { componentName, }).then(
+                        (jsCode) => {
+                            fs.writeFile(`./output/${newFilename}${typescript ? '.tsx' : '.jsx'}`, jsCode, () => { 
+                                console.log(`${componentName} created and saved to ./output/${newFilename}`) 
+                            })
+                        },
                     )
+                } catch (e) {
+                    console.error('error on file:', filename, e.message)
+                }
                     
             })
         })
