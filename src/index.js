@@ -10,6 +10,7 @@ const main = () => {
     const icon = args.includes('--icon')
     const typescript = args.includes('--typescript')
     const native = args.includes('--native')
+    const ref = args.includes('--ref')
 
     let prefix = null
 
@@ -59,6 +60,7 @@ const main = () => {
                         icon, 
                         typescript, 
                         native, 
+                        ref,
                         prettier: true,
                         plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx', '@svgr/plugin-prettier'],
                     }, { componentName, }).then(
